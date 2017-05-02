@@ -96,10 +96,11 @@ def plot_kmeans_clustered_data(temp_file_path, nc):
   
 ## =========== Problem 3 ==================
 
-  ageGroups = (20,30,40,50,60,70)
-  peopleInAgeGroup= {20:326,30:335,40:351,50:323, 60:327, 70:338}
-  accidentsInAgeGroup = {20:169,30:94,40:136,50:63,60:214,70:229}
-
+ageGroups = (20,30,40,50,60,70)
+peopleInAgeGroup= {20:326,30:335,40:351,50:323, 60:327, 70:338}
+accidentsInAgeGroup = {20:169,30:94,40:136,50:63,60:214,70:229}
+numOfPeople= 2000
+numOfAccidents = 905
 
 
 
@@ -130,7 +131,7 @@ def probOfAgeGroup(x):
 
 ## P(Purchase) = prob of buying something
 def probOfPurchase():
-    return float(numOfPurchases)/numOfPeople
+    return float(numOfAccidents)/numOfPeople
  
 ## P(Purchase, AG=x) 
 def probOfPurchaseAndAgeGroup(x):
@@ -161,7 +162,5 @@ def sum_of_first_n_odd_vms(n):
 
 ## for your unit tests
 if __name__ == '__main__':
-    print sum_of_first_n_odd_vms(2)
-    print sum_of_first_n_odd_vms(3)
-    
-    pass
+  displayDependentVars()   
+  pass
