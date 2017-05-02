@@ -28,6 +28,9 @@ def eval_dtr_built_from_img_dir(img_dir):
   data_items = ()
   target
   ## load data from files
+  ##
+  ## I CANT MAKE THIS WORK SORRY MY CODE DOESNT COMPILE
+  ##
   gen_box = ()
   gen_box.append(generate_file_names)
   while gen_box != null:
@@ -35,13 +38,21 @@ def eval_dtr_built_from_img_dir(img_dir):
 
   
   ## for each test split value
-      ## run_train_test_split
       ## run confusion matrix
       ## 
   for t_val in xrange(0,x,10):
-    run_train_test_split(classifier, 1, t_val)
+    cm = Compute_train_test_confusion_matrix(classifier, t_val)
+    print 'Test size = "', t_val
+    print '\n'
+    print 'Classification report:\n'
+    ## I dont know how to build that report
+    print 'Confusion matrix:\n'
+    print cm
+  
   pass
 
+## this is an attempt to build the data into data_items and training but I dont
+##   think I have the data types or format right
 def generate_file_names(rootdir):
   for path, dirlist, filelist in os.walk(rootdir):
     for file_name in filelist:
@@ -59,16 +70,6 @@ def generate_file_names(rootdir):
       yield (os.path.join(path, file_name),target)
   pass
 
-def run_train_test_split(classifier, n, test_size):
-    for i in xrange(n):
-        train_data, test_data, train_target, test_target = \
-                    train_test_split(data_items, target,
-                                     test_size=test_size, random_state=randint(0, 1000))
-        dt = classifier.fit(train_data, train_target)
-        print 'train/test run ',i,': accuracy = ',(sum(dt.predict(test_data) == test_target)/float(len(test_target)))
-        print '------------------------------------------------------'
-    return dt
-
 def compute_train_test_confusion_matrix(classifier, test_size):
     train_data, test_data, train_target, test_target = \
                     train_test_split(data_items, target,
@@ -76,7 +77,6 @@ def compute_train_test_confusion_matrix(classifier, test_size):
     dt = classifier.fit(train_data, train_target)
     test_predict = dt.predict(test_data)
     cm = confusion_matrix(test_target, test_predict)
-    plot_confusion_matrix(cm, ['0','1','2','3','4','5','6','7','8','9'], 'Digits Decision Tree')
     
   
 ## ================= Problem 2 ==================
@@ -96,19 +96,52 @@ def plot_kmeans_clustered_data(temp_file_path, nc):
   
 ## =========== Problem 3 ==================
 
+  ageGroups = (20,30,40,50,60,70)
+  peopleInAgeGroup= {20:326,30:335,40:351,50:323, 60:327, 70:338}
+  accidentsInAgeGroup = {20:169,30:94,40:136,50:63,60:214,70:229}
+
+
+
+
 def displayDependentVars(probDiff=0.1):
   ## your code
+  for x in ageGroups:
+    diffProbs = abs(condProbOfPurchaseGivenAgeGroup(x) - probOfPurchase())
+    if (diffProbs > probDiff):
+      print "TA and AG=",x," are Dependent"
+
   pass
 
 def displayIndependentVars(probDiff=0.1):
-  ## your code
+  for x in ageGroups:
+      diffProbs = abs(condProbOfPurchaseGivenAgeGroup(x) - probOfPurchase())
+      if (diffProbs < probDiff):
+          print "TA and AG=",x," are independent"
+          
   pass
+
+## P(Purchase | AgeGroup = x)
+def probOfPurchaseGivenAgeGroup(x):
+    return float(accidentsInAgeGroup[x])/peopleInAgeGroup[x]
+
+## P(AgeGroup=x)
+def probOfAgeGroup(x):
+    return float(peopleInAgeGroup[x])/numOfPeople
+
+## P(Purchase) = prob of buying something
+def probOfPurchase():
+    return float(numOfPurchases)/numOfPeople
+ 
+## P(Purchase, AG=x) 
+def probOfPurchaseAndAgeGroup(x):
+    return float(accidentsInAgeGroup[x])/numOfPeople
+
+## P(Purchase | AgeGroup = x) = P(Purchase, AgeGroup=x)/P(AgeGroup=x)
+def condProbOfPurchaseGivenAgeGroup(x):
+    return probOfPurchaseAndAgeGroup(x)/probOfAgeGroup(x)
+
 
 ## ============== Problem 4 =====================
-
-def VG():
-  ## useless fucntion
-  pass
 
 def VG(n):
   if n == 0:
