@@ -2,10 +2,10 @@
 
 ############################
 # module: coding_exam_3.py
-# YOUR NAME
-# YOUR A-NUMBER
+# Robert Epstein
+# A01092594
 ############################
-
+from __future__ import division
 import cv2
 import numpy as np
 import argparse
@@ -113,12 +113,16 @@ def VG():
 def VG(n):
   if n == 0:
     return 1
-  return (((1/(n+1))*(4*n-2))*VG(n-1))
+  x = float(1/(n+1))
+  y = (4*n-2)
+  z = x*y
+  return (z*VG(n-1))
 
 def sum_of_first_n_odd_vms(n):
   sum_vg = 0
   for x in xrange(n+1):
-    sum_vg += VG(x)
+    if x%2 != 0:
+      sum_vg += VG(x)
   return sum_vg
   pass
 
