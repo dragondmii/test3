@@ -112,8 +112,8 @@ def VG():
 
 def VG(n):
   if n == 1:
-    yield 1
-  yield (((1/(n+1))*(4*n-2))*VG(n-1))
+    return 1
+  return (((1/(n+1))*(4*n-2))*VG(n-1))
 
 def sum_of_first_n_odd_vms(n):
   sum_vg = 0
