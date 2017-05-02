@@ -65,7 +65,7 @@ def run_train_test_split(classifier, n, test_size):
                     train_test_split(data_items, target,
                                      test_size=test_size, random_state=randint(0, 1000))
         dt = classifier.fit(train_data, train_target)
-print 'train/test run ',i,': accuracy = ',(sum(dt.predict(test_data) == test_target)/float(len(test_target)))
+        print 'train/test run ',i,': accuracy = ',(sum(dt.predict(test_data) == test_target)/float(len(test_target)))
         print '------------------------------------------------------'
     return dt
 
