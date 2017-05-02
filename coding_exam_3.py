@@ -111,7 +111,7 @@ def VG():
   pass
 
 def VG(n):
-  if n == 1:
+  if n == 0:
     return 1
   return (((1/(n+1))*(4*n-2))*VG(n-1))
 
